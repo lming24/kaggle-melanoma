@@ -1,0 +1,3 @@
+,image_name,patient_id,sex,age_approx,anatom_site_general_challenge,diagnosis,benign_malignant,target
+0,ISIC_2637011,IP_7279968,male,45.0,head/neck,unknown,benign,0
+1,ISIC_0015719,IP_3075186,female,45.0,upper extremity,unknown,benign,0

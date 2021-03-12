@@ -1,0 +1,80 @@
+{
+    "name": "Resnet_Melanoma1",
+
+    "device_mapper": {
+        "type": "SimpleDataParallel",
+        "args": {
+          "n_gpu": 1
+        }
+    },
+    "arch": {
+        "type": "ResNet",
+        "args": {
+          "variant_str": "152",
+          "num_classes": 1,
+          "additional_features": 8,
+          "pretrained": true
+        }
+    },
+    "train_data_loader": {
+        "type": "MelanomaDataloader",
+        "args": {
+            "path": "../data/train/",
+            "batch_size": 6,
+            "shuffle": true,
+            "num_workers": 4,
+            "malignant_sampling_weight": 10,
+            "preload_to_mem": true,
+            "augmentation": true
+        }
+    },
+    "val_data_loader": {
+        "type": "MelanomaDataloader",
+        "args": {
+          "path": "../data/val/",
+          "batch_size": 12,
+          "shuffle": false,
+          "num_workers": 4,
+          "preload_to_mem": true,
+          "augmentation": false
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.001,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": {
+      "type": "BinaryCrossEntropyLogits",
+      "args": {}
+    },
+    "metrics": [
+      {
+        "type": "AccuracyWithLogits",
+        "args": {}
+      }
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "type": "Trainer",
+        "args": {
+          "epochs": 40,
+
+          "save_period": 1,
+
+          "monitor": "min val_loss",
+          "early_stop": 5,
+
+          "tensorboard": true
+        }
+    }
+}

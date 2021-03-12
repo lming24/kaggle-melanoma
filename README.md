@@ -1,1 +1,1 @@
-# kaggle-melanoma
+Melanoma CLassifier for Kaggle competition
